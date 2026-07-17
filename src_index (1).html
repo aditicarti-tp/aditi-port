@@ -137,7 +137,7 @@
   .hero-name {
     font-family: 'Fraunces', serif;
     font-size: clamp(3.2rem, 9vw, 7.5rem);
-    font-weight: 700;
+    font-weight: 500;
     line-height: 0.98;
     letter-spacing: -0.01em;
     color: var(--ink);
@@ -146,7 +146,7 @@
   }
   .hero-name em {
     font-style: italic;
-    font-weight: 500;
+    font-weight: 400;
     color: var(--accent);
   }
 
@@ -252,7 +252,7 @@
   .about-text p {
     font-size: 1rem;
     color: var(--ink-70);
-    max-width: 580px;
+    max-width: 900px;
     margin-bottom: 1rem;
     line-height: 1.85;
   }
@@ -308,7 +308,7 @@
   .section-title-block p {
     font-size: 0.95rem;
     color: var(--ink-50);
-    max-width: 560px;
+    max-width: 920px;
   }
 
   .artefact {
@@ -346,8 +346,9 @@
 
   .artefact-body {
     display: grid;
-    grid-template-columns: 300px 1fr;
-    gap: 3rem;
+    grid-template-columns: minmax(380px, 0.95fr) minmax(0, 1.45fr);
+    gap: 2.75rem;
+    align-items: start;
   }
 
   .artefact-figures {
@@ -382,6 +383,43 @@
     display: block;
     border-bottom: 1px solid var(--line);
   }
+  img[data-enlargeable] { cursor: zoom-in; }
+  .image-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    background: rgba(32,30,36,0.78);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  .image-modal.open { display: flex; }
+  .image-modal img {
+    width: min(92vw, 1200px);
+    max-height: 88vh;
+    object-fit: contain;
+    border-radius: 6px;
+    background: var(--card);
+    box-shadow: 0 24px 80px rgba(0,0,0,0.35);
+    cursor: zoom-out;
+  }
+  .image-modal button {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.4);
+    background: rgba(255,255,255,0.12);
+    color: #fff;
+    font-size: 1.6rem;
+    line-height: 1;
+    cursor: pointer;
+  }
   .evidence-figure figcaption {
     padding: 0.95rem 1.1rem 1.1rem;
     display: flex;
@@ -400,7 +438,7 @@
     font-size: 0.78rem;
     color: var(--ink-50);
     line-height: 1.5;
-    max-width: 220px;
+    max-width: 320px;
   }
 
   .artefact-text h4 {
@@ -510,7 +548,7 @@
     font-size: 0.92rem;
     color: var(--ink-70);
     line-height: 1.85;
-    max-width: 780px;
+    max-width: 1040px;
   }
   .ccs-content p + p { margin-top: 0.85rem; }
 
@@ -545,7 +583,7 @@
   .outlook-block p {
     font-size: 0.95rem;
     color: var(--ink-70);
-    max-width: 720px;
+    max-width: 1040px;
     line-height: 1.9;
   }
   .outlook-block p + p { margin-top: 1rem; }
@@ -676,6 +714,7 @@
     .footer-links { flex-wrap: wrap; }
     .ccs-card summary { padding: 1.4rem 1.5rem; }
     .ccs-content { padding: 0 1.5rem 1.5rem; }
+    .image-modal { padding: 1rem; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -803,7 +842,7 @@
       </div>
       <div class="artefact-text">
         <h4>Description</h4>
-        <p>A data validation workstream spanning two related pieces of work. <strong>Datalake validation</strong> checks that data flowing from eFront and DealCloud into the Databricks data lake is processed correctly: waterfall logic, field mappings, and transformation rules are all verified against a source-to-target mapping document and a Data Quality Rules table. <strong>eFront UAT</strong> compares outputs from the Front Cube server against the existing eFront calculation engine to confirm values match within acceptable tolerance before Front Cube is adopted as the primary reporting server.</p>
+        <p>A data validation workstream spanning two related pieces of work. <strong>Datalake validation</strong> checks that data flowing from eFront and DealCloud into the Databricks data lake is processed correctly: waterfall logic, field mappings, and transformation rules are all verified against a source-to-target mapping document and a Data Quality Rules table. <strong>eFront UAT</strong> compares outputs from the Front Cube server against the existing eFront calculation engine to confirm values match within acceptable tolerance before Front Cube is adopted as the primary reporting server.</p><p>The wider Datalake project was initiated because key operational data sits across Capital IQ, eFront, and DealCloud, making manual extraction and reporting time-consuming and repetitive. My validation focus was on the Dimension and Mapping tables after raw tables were loaded, including extract timestamps, audit table entries, generated primary keys, transformation rules, and data quality checks that populate error or reprocess tables when new records violate expected logic.</p>
         <h4>My Contribution</h4>
         <p>For the Datalake validation, I reviewed source-to-target mapping documents to understand how eFront and DealCloud data was combined and transformed, including the waterfall logic that determines which source to use when both systems reference the same field. I performed column-level reconciliation between the Raw and Computed Layers in Databricks, flagged cases where the mapping document itself was incorrect, and built reusable PySpark validation utilities covering comparison logic, deduplication, metric verification, and automated Excel export, so that validation runs could be repeated consistently across tables. For the eFront UAT, I ran side-by-side comparisons between Front Cube and the original engine across multiple funds, checking that cashflows, NAV adjustments, and valuations matched within reporting tolerance, and documented any discrepancies in a structured mismatch report.</p>
         <h4>How It Is Used</h4>
@@ -837,9 +876,9 @@
       </div>
       <div class="artefact-text">
         <h4>Description</h4>
-        <p>A reporting dashboard built end-to-end in DealCloud to track task management, workload allocation, and hours spent across the team, starting as a sandbox prototype on a dummy dataset, then deployed to production once validated.</p>
+        <p>A reporting dashboard built end-to-end in DealCloud to track task management, workload allocation, and hours spent across the team, starting as a sandbox prototype on a dummy dataset, then deployed to production once validated. DealCloud is the team's CRM and deal lifecycle platform, so the dashboard was designed around the Axiom Tasks object used by the Axiom MINDS data team to manage operational work such as updating fund, company, and contact information.</p><p>The dashboard provides a weekly snapshot of task progression by showing how many tasks were newly created, completed, or still open. It also breaks tasks down by assignee and includes hours spent, making workload easier to interpret because some tasks require significantly more effort than others. The KPI hours feature also supports pre-allocated hours with an overwrite option when actual effort is higher than expected.</p>
         <h4>My Contribution</h4>
-        <p>I designed and built the entire dashboard myself: setting up the Axiom Minds objects, configuring the reporting structures, creating the KPI metrics and visualisations, and setting up all widgets and filters. It tracks task status trends over time, hours spent per team member by task type, weekly task status by assignee, and new tasks logged by date. I built a dummy dataset in the sandbox to test everything before pushing to production, and supported the team during onboarding.</p>
+        <p>I designed and built the entire dashboard myself: setting up the Axiom Minds objects, configuring the reporting structures, creating the KPI metrics and visualisations, and setting up all widgets and filters. It tracks task status trends over time, hours spent per team member by task type, weekly task status by assignee, and new tasks logged by date. I built a dummy dataset in the sandbox to test the layout, metric logic, filters, and widget behaviour before pushing to production, then supported the team during onboarding so the dashboard could be used consistently.</p>
         <h4>How It Is Used</h4>
         <p>Management and team leads use the dashboard to track open and completed tasks, monitor how hours are distributed, and get a clearer picture of weekly workload allocation, giving the team a live operational view to support resource planning and task prioritisation.</p>
       </div>
@@ -878,9 +917,9 @@
       </div>
       <div class="artefact-text">
         <h4>Description</h4>
-        <p>A recurring public markets portfolio tracker maintained in Excel, monitoring the organisation's public equity holdings across investment funds and co-investments. It consolidates share prices, currency conversions, holding valuations, and realised gains and losses across multiple markets, including USD, HKD, JPY, TWD, and INR, refreshed weekly using Capital IQ integrations.</p>
+        <p>A recurring public markets portfolio tracker maintained in Excel, monitoring the organisation's public equity holdings across investment funds and co-investments. It consolidates share prices, currency conversions, holding valuations, realised proceeds, and gains and losses across multiple markets, including USD, HKD, JPY, TWD, and INR, refreshed weekly using Capital IQ integrations and formulas.</p><p>The Public Stock Tracker is an Excel template maintained for recurring stakeholder reporting. Each week, the reference date is updated, Capital IQ is used to refresh market prices, and investment-related values are checked against eFront records. The workbook includes summary and top-UPC views so stakeholders can quickly monitor the specific public companies and holdings that matter most to current discussions.</p>
         <h4>My Contribution</h4>
-        <p>I was responsible for the weekly maintenance and update of the Public Stock Tracker workbook, refreshing market data through Capital IQ, validating ticker mappings and company identifiers, verifying share prices and currency conversions, and updating holding values, realised proceeds, and gains and losses. When discrepancies came up, I investigated them, traced them back to the source, and resolved the issues to keep the portfolio information accurate and ready for distribution before the weekly reporting deadline.</p>
+        <p>I was responsible for the weekly maintenance and update of the Public Stock Tracker workbook, refreshing market data through Capital IQ, validating ticker mappings and company identifiers, verifying share prices and currency conversions, and updating holding values, realised proceeds, and gains and losses. I also checked that the weekly reference date, Capital IQ formulas, and eFront-derived investment values aligned correctly across the summary and top-UPC tabs. When discrepancies came up, I investigated them, traced them back to the source, and resolved the issues to keep the portfolio information accurate and ready for distribution before the weekly reporting deadline.</p>
         <h4>How It Is Used</h4>
         <p>The tracker is used weekly by the investment team to monitor public equity portfolio performance across multiple funds and co-investments, feeding into internal portfolio reporting and supporting decisions around holdings and valuations.</p>
       </div>
@@ -973,9 +1012,9 @@
   <div class="outlook-block fade-up">
     <p class="outlook-label">Nature of Work</p>
     <h3>A mix of BAU, validation, and self-owned builds</h3>
-    <p>A large part of my regular work was business-as-usual: going through deal emails, fund update PDFs, and investor letters to extract information and keep DealCloud current. This meant tagging UPC records, refreshing fund and company-level data, and maintaining contact information for the investment team.</p>
-    <p>Alongside that, I worked on data validation: checking that data flowing between eFront, DealCloud, and the Databricks data lake was accurate, working through mapping documents, running reconciliation checks, and documenting issues. I was also part of the eFront UAT effort, comparing Front Cube against the existing calculation engine.</p>
-    <p>The DealCloud dashboard was a more substantial piece of work I owned start to finish, from requirements through to production. And weekly, I maintained the public markets portfolio tracker. Across all of it, the work involved both technical execution and judgment, not just running processes, but understanding what the data should look like and knowing when to flag something versus resolve it independently.</p>
+    <p>A large part of my regular work was business-as-usual: going through deal emails, fund update PDFs, and investor letters to extract information and keep DealCloud current. This meant tagging UPC records, refreshing fund and company-level data, updating contact information, and making sure investment records stayed accurate and usable for the team.</p><p>This day-to-day work required more than copying information across systems. I had to understand which details were relevant, identify whether an update affected a fund, company, contact, or deal record, and apply consistent naming and tagging practices so the CRM remained reliable for downstream searches and reporting.</p>
+    <p>Alongside that, I worked on data validation: checking that data flowing between eFront, DealCloud, and the Databricks data lake was accurate, working through mapping documents, running reconciliation checks, and documenting issues. I reviewed waterfall logic, calculated fields, business rules, and source-to-target mappings between the Raw and Computed Layers to confirm the data pipeline was behaving as intended.</p>
+    <p>The DealCloud dashboard was a more substantial piece of work I owned start to finish, from requirements and sandbox prototyping with dummy data through to production deployment and team onboarding. I configured the reporting objects, KPI metrics, visualisations, filters, and dashboard widgets used to track weekly task status, workload allocation, and hours spent by assignee.</p><p>Weekly, I also maintained the public markets portfolio tracker by refreshing Capital IQ data, checking ticker mappings, validating currency conversions, and preparing the workbook for distribution. Across all of this, the work involved both technical execution and judgment, not just running processes, but understanding what the data should look like and knowing when to flag something versus resolve it independently.</p>
   </div>
 
   <div class="outlook-block fade-up">
@@ -983,15 +1022,24 @@
     <h3>Building context before trusting the data</h3>
     <p>Getting up to speed with the Databricks data schema was one of the biggest early challenges. The structure across Raw and Computed Layers, and the business logic behind waterfall calculations, was something I had to piece together gradually before I could tell whether a value was correct or something had gone wrong upstream.</p>
     <p>A related challenge was knowing when to trust the data versus question it. Some discrepancies were expected (like floating-point differences within tolerance), while others pointed to genuine mapping or logic issues. Telling the difference required both technical understanding and domain knowledge, and I learned to consult colleagues rather than assume, an adjustment from working independently. I also had to think carefully through deduplication logic in databases that retain full record history rather than overwriting.</p>
-    <p>On the dashboard side, the challenge was judging which of many possible widgets and views were genuinely useful versus clutter, which required back-and-forth with my supervisor and staying focused on what the team would actually use regularly.</p>
+    <p>On the dashboard side, the challenge was judging which of many possible widgets and views were genuinely useful versus clutter, which required back-and-forth with my supervisor and staying focused on what the team would actually use regularly. I had to balance visual detail with readability, especially for task status trends, hours spent, and assignee-level workload views.</p>
   </div>
 
   <div class="outlook-block fade-up">
     <p class="outlook-label">Learning &amp; Growth</p>
     <h3>From no experience to production-ready outputs</h3>
     <p>Coming in as a Year 3 student, I expected fairly surface-level work, but ended up involved in things with real consequences for financial reporting accuracy, which raised the bar for how carefully I approached everything.</p>
-    <p>Technically, I went from no experience with Databricks, DealCloud, or Capital IQ to using all three productively in a professional setting, and more importantly, learned how to learn new tools quickly without a structured onboarding, through documentation, experimentation, and asking the right people the right questions.</p>
+    <p>Technically, I went from no experience with Databricks, DealCloud, or Capital IQ to using all three productively in a professional setting. I learned to query and compare datasets in Databricks, configure reporting in DealCloud, and use Capital IQ integrations in Excel for time-sensitive market updates.</p><p>More importantly, I learned how to learn new tools quickly without a structured onboarding, through documentation, experimentation, sandbox testing, and asking the right people the right questions. That experience made me more confident working with unfamiliar platforms and more comfortable taking ownership of work where the full solution was not obvious at the beginning.</p>
     <p>I also developed a much stronger practical sense of data quality: the difference between understanding validation as a concept and being responsible for catching issues before they reach fund managers and investors. Beyond the technical, I grew in how I communicate within a team: checking in at the right moments, framing questions clearly, taking feedback without getting defensive, and getting comfortable navigating ambiguity.</p>
+  </div>
+
+
+  <div class="outlook-block fade-up">
+    <p class="outlook-label">Experiences</p>
+    <h3>Exposure to cloud, AI, and deal technology trends</h3>
+    <p>I attended an AWS event at Marina Bay Sands that focused on how AI is changing cloud-based data infrastructure. The sessions helped me connect my data lake work to a broader architecture: storage through services such as S3, ingestion through crawlers, and automated ETL or workflow processes through services such as AWS Lambda. Seeing how these components support unified repositories and advanced analytics gave me a clearer understanding of why strong data foundations matter beyond the immediate project.</p>
+    <p>The event also introduced newer AI capabilities such as Bedrock, which provides access to large language models through a unified API, and AWS Connect use cases involving agentic AI for areas like customer service, supply chain planning, hiring solutions, and healthcare workflows. Hearing sector specialists explain how they scaled AWS-based systems and overcame implementation roadblocks gave me a wider view of how AI and cloud computing are being adopted outside the technology sector, including in finance.</p>
+    <p>I also attended an Intapp webinar on Celeste, a firm-focused AI designed to help organisations use proprietary DealCloud data securely. This was especially relevant to private equity because proprietary relationship and deal data can be a competitive advantage. The webinar showed how AI could help investment teams query internal data, map customer and team relationships, compare deals by sector or geography, and streamline decision-making while protecting sensitive information.</p>
   </div>
 
 </section>
@@ -1013,6 +1061,11 @@
   </svg>
 </button>
 
+<div class="image-modal" id="image-modal" aria-hidden="true" role="dialog" aria-label="Enlarged image preview">
+  <button type="button" id="image-modal-close" aria-label="Close enlarged image">×</button>
+  <img id="image-modal-img" alt="" />
+</div>
+
 <script>
   let lastY = 0;
   const nav = document.getElementById('nav');
@@ -1032,6 +1085,27 @@
   const links  = document.getElementById('nav-links');
   toggle.addEventListener('click', () => links.classList.toggle('open'));
   links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+
+  const imageModal = document.getElementById('image-modal');
+  const imageModalImg = document.getElementById('image-modal-img');
+  const imageModalClose = document.getElementById('image-modal-close');
+  document.querySelectorAll('img').forEach(img => {
+    img.setAttribute('data-enlargeable', 'true');
+    img.addEventListener('click', () => {
+      imageModalImg.src = img.currentSrc || img.src;
+      imageModalImg.alt = img.alt || 'Enlarged portfolio image';
+      imageModal.classList.add('open');
+      imageModal.setAttribute('aria-hidden', 'false');
+    });
+  });
+  const closeImageModal = () => {
+    imageModal.classList.remove('open');
+    imageModal.setAttribute('aria-hidden', 'true');
+    imageModalImg.removeAttribute('src');
+  };
+  imageModalClose.addEventListener('click', closeImageModal);
+  imageModal.addEventListener('click', e => { if (e.target === imageModal || e.target === imageModalImg) closeImageModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && imageModal.classList.contains('open')) closeImageModal(); });
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
