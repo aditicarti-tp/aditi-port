@@ -137,7 +137,7 @@
   .hero-name {
     font-family: 'Fraunces', serif;
     font-size: clamp(3.2rem, 9vw, 7.5rem);
-    font-weight: 700;
+    font-weight: 500;
     line-height: 0.98;
     letter-spacing: -0.01em;
     color: var(--ink);
@@ -146,7 +146,7 @@
   }
   .hero-name em {
     font-style: italic;
-    font-weight: 500;
+    font-weight: 400;
     color: var(--accent);
   }
 
@@ -252,7 +252,7 @@
   .about-text p {
     font-size: 1rem;
     color: var(--ink-70);
-    max-width: 580px;
+    max-width: 900px;
     margin-bottom: 1rem;
     line-height: 1.85;
   }
@@ -308,7 +308,7 @@
   .section-title-block p {
     font-size: 0.95rem;
     color: var(--ink-50);
-    max-width: 560px;
+    max-width: 920px;
   }
 
   .artefact {
@@ -346,8 +346,9 @@
 
   .artefact-body {
     display: grid;
-    grid-template-columns: 300px 1fr;
-    gap: 3rem;
+    grid-template-columns: minmax(380px, 0.95fr) minmax(0, 1.45fr);
+    gap: 2.75rem;
+    align-items: start;
   }
 
   .artefact-figures {
@@ -437,7 +438,7 @@
     font-size: 0.78rem;
     color: var(--ink-50);
     line-height: 1.5;
-    max-width: 220px;
+    max-width: 320px;
   }
 
   .artefact-text h4 {
@@ -547,7 +548,7 @@
     font-size: 0.92rem;
     color: var(--ink-70);
     line-height: 1.85;
-    max-width: 780px;
+    max-width: 1040px;
   }
   .ccs-content p + p { margin-top: 0.85rem; }
 
@@ -582,7 +583,7 @@
   .outlook-block p {
     font-size: 0.95rem;
     color: var(--ink-70);
-    max-width: 720px;
+    max-width: 1040px;
     line-height: 1.9;
   }
   .outlook-block p + p { margin-top: 1rem; }
@@ -877,7 +878,7 @@
         <h4>Description</h4>
         <p>A reporting dashboard built end-to-end in DealCloud to track task management, workload allocation, and hours spent across the team, starting as a sandbox prototype on a dummy dataset, then deployed to production once validated. DealCloud is the team's CRM and deal lifecycle platform, so the dashboard was designed around the Axiom Tasks object used by the Axiom MINDS data team to manage operational work such as updating fund, company, and contact information.</p><p>The dashboard provides a weekly snapshot of task progression by showing how many tasks were newly created, completed, or still open. It also breaks tasks down by assignee and includes hours spent, making workload easier to interpret because some tasks require significantly more effort than others. The KPI hours feature also supports pre-allocated hours with an overwrite option when actual effort is higher than expected.</p>
         <h4>My Contribution</h4>
-        <p>I designed and built the entire dashboard myself: setting up the Axiom Minds objects, configuring the reporting structures, creating the KPI metrics and visualisations, and setting up all widgets and filters. It tracks task status trends over time, hours spent per team member by task type, weekly task status by assignee, and new tasks logged by date. I built a dummy dataset in the sandbox to test everything before pushing to production, and supported the team during onboarding.</p>
+        <p>I designed and built the entire dashboard myself: setting up the Axiom Minds objects, configuring the reporting structures, creating the KPI metrics and visualisations, and setting up all widgets and filters. It tracks task status trends over time, hours spent per team member by task type, weekly task status by assignee, and new tasks logged by date. I built a dummy dataset in the sandbox to test the layout, metric logic, filters, and widget behaviour before pushing to production, then supported the team during onboarding so the dashboard could be used consistently.</p>
         <h4>How It Is Used</h4>
         <p>Management and team leads use the dashboard to track open and completed tasks, monitor how hours are distributed, and get a clearer picture of weekly workload allocation, giving the team a live operational view to support resource planning and task prioritisation.</p>
       </div>
@@ -918,7 +919,7 @@
         <h4>Description</h4>
         <p>A recurring public markets portfolio tracker maintained in Excel, monitoring the organisation's public equity holdings across investment funds and co-investments. It consolidates share prices, currency conversions, holding valuations, realised proceeds, and gains and losses across multiple markets, including USD, HKD, JPY, TWD, and INR, refreshed weekly using Capital IQ integrations and formulas.</p><p>The Public Stock Tracker is an Excel template maintained for recurring stakeholder reporting. Each week, the reference date is updated, Capital IQ is used to refresh market prices, and investment-related values are checked against eFront records. The workbook includes summary and top-UPC views so stakeholders can quickly monitor the specific public companies and holdings that matter most to current discussions.</p>
         <h4>My Contribution</h4>
-        <p>I was responsible for the weekly maintenance and update of the Public Stock Tracker workbook, refreshing market data through Capital IQ, validating ticker mappings and company identifiers, verifying share prices and currency conversions, and updating holding values, realised proceeds, and gains and losses. When discrepancies came up, I investigated them, traced them back to the source, and resolved the issues to keep the portfolio information accurate and ready for distribution before the weekly reporting deadline.</p>
+        <p>I was responsible for the weekly maintenance and update of the Public Stock Tracker workbook, refreshing market data through Capital IQ, validating ticker mappings and company identifiers, verifying share prices and currency conversions, and updating holding values, realised proceeds, and gains and losses. I also checked that the weekly reference date, Capital IQ formulas, and eFront-derived investment values aligned correctly across the summary and top-UPC tabs. When discrepancies came up, I investigated them, traced them back to the source, and resolved the issues to keep the portfolio information accurate and ready for distribution before the weekly reporting deadline.</p>
         <h4>How It Is Used</h4>
         <p>The tracker is used weekly by the investment team to monitor public equity portfolio performance across multiple funds and co-investments, feeding into internal portfolio reporting and supporting decisions around holdings and valuations.</p>
       </div>
@@ -1030,6 +1031,15 @@
     <p>Coming in as a Year 3 student, I expected fairly surface-level work, but ended up involved in things with real consequences for financial reporting accuracy, which raised the bar for how carefully I approached everything.</p>
     <p>Technically, I went from no experience with Databricks, DealCloud, or Capital IQ to using all three productively in a professional setting. I learned to query and compare datasets in Databricks, configure reporting in DealCloud, and use Capital IQ integrations in Excel for time-sensitive market updates.</p><p>More importantly, I learned how to learn new tools quickly without a structured onboarding, through documentation, experimentation, sandbox testing, and asking the right people the right questions. That experience made me more confident working with unfamiliar platforms and more comfortable taking ownership of work where the full solution was not obvious at the beginning.</p>
     <p>I also developed a much stronger practical sense of data quality: the difference between understanding validation as a concept and being responsible for catching issues before they reach fund managers and investors. Beyond the technical, I grew in how I communicate within a team: checking in at the right moments, framing questions clearly, taking feedback without getting defensive, and getting comfortable navigating ambiguity.</p>
+  </div>
+
+
+  <div class="outlook-block fade-up">
+    <p class="outlook-label">Experiences</p>
+    <h3>Exposure to cloud, AI, and deal technology trends</h3>
+    <p>I attended an AWS event at Marina Bay Sands that focused on how AI is changing cloud-based data infrastructure. The sessions helped me connect my data lake work to a broader architecture: storage through services such as S3, ingestion through crawlers, and automated ETL or workflow processes through services such as AWS Lambda. Seeing how these components support unified repositories and advanced analytics gave me a clearer understanding of why strong data foundations matter beyond the immediate project.</p>
+    <p>The event also introduced newer AI capabilities such as Bedrock, which provides access to large language models through a unified API, and AWS Connect use cases involving agentic AI for areas like customer service, supply chain planning, hiring solutions, and healthcare workflows. Hearing sector specialists explain how they scaled AWS-based systems and overcame implementation roadblocks gave me a wider view of how AI and cloud computing are being adopted outside the technology sector, including in finance.</p>
+    <p>I also attended an Intapp webinar on Celeste, a firm-focused AI designed to help organisations use proprietary DealCloud data securely. This was especially relevant to private equity because proprietary relationship and deal data can be a competitive advantage. The webinar showed how AI could help investment teams query internal data, map customer and team relationships, compare deals by sector or geography, and streamline decision-making while protecting sensitive information.</p>
   </div>
 
 </section>
